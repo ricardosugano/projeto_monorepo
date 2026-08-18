@@ -21,10 +21,16 @@ router.post("/", async (req: Request, res: Response) => {
 router.get("/:id", async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const usuario = await User.findByPk(id, {
+
+        const usuario = await User.findByPk(Number(id), {
             attributes: ['id', 'name', 'email', 'createdAt', 'updatedAt']
         });
+
+        if (!usuario) {
+            return res.status(404).json({ message: 'Usuário não encontrado' });
+        }
         res.status(200).json(usuario);
+        
     } catch (error) {
         res.status(500).json({ message: 'Erro ao listar usuário' });
     }
