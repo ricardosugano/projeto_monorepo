@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { sequelize } from './config/database';
 import { User } from "./models/Users";
+import { router as userRoutes } from "./routes/userRoutes";
 
 dotenv.config();
 
@@ -21,6 +22,9 @@ app.get("/api/health",  (req: Request, res: Response) => {
         timestamp: new Date().toISOString()
     });
 });
+
+//registrar as rotas da aplicação sob o prefixo /api
+app.use("/api", userRoutes);
 
 // cadastrar um novo usuário
 app.post("/api/users", async (req: Request, res: Response) => {
