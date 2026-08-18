@@ -1,0 +1,16 @@
+### health check
+GET http://localhost:3000/health-check
+
+## list users
+GET http://localhost:3000/users
+
+## create user
+POST http://localhost:3000/users
+
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "password": "senhaForte123"
+}

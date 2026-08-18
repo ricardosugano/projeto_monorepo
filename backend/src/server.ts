@@ -32,11 +32,23 @@ app.post("/api/users", async (req: Request, res: Response) => {
 
         const novoUsuario = await User.create({ name, email, password });
         res.status(201).json(novoUsuario);
-        
+
     } catch (error) {
         res.status(500).json({ message: 'Erro ao criar usuário' });
     }
 });
+
+//listar todos os usuários
+app.get("/api/users", async (req: Request, res: Response) => {
+    try { 
+        const usuarios = await User.findAll({
+            attributes: ['id', 'name', 'email', 'createdAt', 'updatedAt']
+        });
+        res.status(200).json(usuarios);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao listar usuários' });
+    }
+}); 
 
 
 async function main() {
